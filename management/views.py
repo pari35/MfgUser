@@ -1,20 +1,25 @@
+from django.http import JsonResponse
 from django.shortcuts import render ,redirect
 from django.contrib import messages
+from django.contrib.auth.models import User,auth
 
-from .models import AddUser, ProfilePic
-from .forms import AddUsers
+from .models import AddUser
+# from .forms import AddUsers
 
 #add user 
 def add_user(request):
     if request.method == 'POST':
-        # form = AddUser(request.form)
+
+        # form = AddUsers(request.POST)
+        # print(form)
+        # if form.is_valid():
+        #     form.save()
         form = AddUser(
             first_name = request.POST.get("firstname"),
             last_name = request.POST.get("lastname"),
             email = request.POST.get("username"),
             role = request.POST.get("userrole")
-        )
-        form.save()
+        ).save()
         
         messages.success(request, "user added")
         # return redirect(request, "add.html")
@@ -50,7 +55,7 @@ def search(request):
 
     search_results = (name_in_query | email_in_query).distinct()
     # print("search results : ", search_results)
-    return render(request, "search_results.html", {"results" : search_results})
+    return render(request, "user_mgmt.html", {"aduser" : search_results})
 
 
 def update_user(request):
@@ -84,5 +89,48 @@ def update_user(request):
         return render(request, "edit_user.html", {"user" : user_update})
     return render(request, "edit_user.html", {"user" : user_update})
 
-    
+def update_user_DB(request):
+    if request.method == "POST":
+        
+        usr = AddUser.objects.get(id = request.POST.get("idd"))
+        
+       
+        usr.first_name = request.POST.get("firstname")
+       
+        usr.last_name=request.POST.get("lastname")
+        usr.username=request.POST.get("username")
+        usr.userrole=request.POST.get("userrole")
+        usr.email=request.POST.get("email")
+        usr.save()
+        return render(request,'user_mgmt.html',{"aduser" : AddUser.objects.all()})
+        # return JsonResponse({"status" : "success"})
+    # return render(request, "")
 
+def user_register(request):
+    if request.method =="POST":
+        firstname=request.POST['first_name']
+        lastname=request.POST['last_name']
+        username=request.POST['username']
+        email=request.POST['email']
+        password=request.POST['password']
+
+        # if User.objects.filter(username=username).exists():
+        #     print('username taken')
+        user=User.objects.create_user(first_name=firstname,last_name=lastname,username=username,email=email,password=password)
+        user.save()
+        print('user created')
+    return render(request,'register.html')
+
+def login(request):
+    if request.method =="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            if user.isAuthenticated:
+                pass
+        return render(request,'user_mgmt.html', {"aduser" : AddUser.objects.all()})
+        print('user logged in')
+        
+    return render(request,'login.html')

@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from .models import AddUser,ProfilePic
+from .models import AddUser
 from django import forms
 
-class AddUsers(ModelForm):
+class AddUsers(forms.ModelForm):
    class Meta:
         model = AddUser
         fields='__all__'

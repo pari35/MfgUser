@@ -11,6 +11,7 @@
    
   </head>
   <body>
+   
     {% comment %} <div class="modal" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -34,15 +35,16 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary" > <a href ="{% url 'add_user' %}"> Add User </a></button>
+      <div class="float-right">
+     <button type="button" class="btn btn-secondary" > <a href ="{% url 'add_user' %}"> Add User </a></button>
+    </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Connector</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <br>
 
          <form method="POST">
@@ -92,15 +94,17 @@
     <tr>
       <th scope="row">{{user.first_name}}</th>
       <td>{{user.email}}</td>
-      <td>  </td>
+      <td> {{user.username}} </td>
       <th scope="row"> {{user.role}} </th>
+      <td>  </td>
+      <td>  </td>
       
       <td> 
          
-         <form action="{% url 'edit-user' %}" method="POST" class="d-inline">
+         <form action="{% url 'edit_user' %}" method="POST" class="d-inline">
           {% csrf_token %}
-          <input type="button" name="id" value="{{c.id}}"/>
-          <button type="btn" class="btn btn-secondary" value="Delete">Edit</button>
+          <input type="hidden" name="id" value="{{user.id}}"/>
+          <button type="submit" class="btn btn-secondary" >Edit</button>
         </form> 
       </td>
 {% endfor %} 
@@ -114,6 +118,12 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ <style>
+   .add{
+     margin:auto
+   }
+ </style>
+ 
   </body>
 </html>
 

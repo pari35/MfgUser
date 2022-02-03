@@ -1,4 +1,4 @@
-{% comment %} <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title> User management</title>
@@ -8,30 +8,33 @@
 
 
 <div class="container">
-    <form method="POST" >
+    <form method="POST" action="{% url 'update_user_DB' %}">
         {% csrf_token %}
+        <input type="hidden" name="idd" value="{{user.id}}">
+        {{user.id}}
       <div class="row">
         <div class="col-25">
           <label for="fname">First Name</label>
         </div>
         <div class="col-75">
-          <input type="text" id="fname" name="firstname" placeholder="first_name">
+          <input type="text" id="fname" name="firstname" placeholder="{{user.first_name}}">
         </div>
       </div>
       <div class="row">
+
         <div class="col-25">
           <label for="lname">Last Name</label>
         </div>
         <div class="col-75">
-          <input type="text" id="lname" name="lastname" placeholder="last_name">
+          <input type="text" id="lname" name="lastname" placeholder="{{user.last_name}}">
         </div>
       </div>
          <div class="row">
         <div class="col-25">
-          <label for="username">Username</label>
+          <label for="username">UserName</label>
         </div>
         <div class="col-75">
-          <input type="text" id="username" name="username" placeholder="username">
+          <input type="text" id="username" name="username" placeholder="{{user.username}}">
         </div>
       </div>
 
@@ -53,17 +56,9 @@
             <label for="email">Email</label>
         </div>
         <div class="col-75">
-            <input type="email" id="email" name="email" placeholder="email">
+            <input type="email" id="email" name="email" placeholder="{{user.email}}">
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="password">password</label>
-        </div>
-        <div class="col-75">
-          <input type="password" id="password" name="password" placeholder="password">
-        </div>
       </div>
 
 
@@ -141,5 +136,6 @@
   } 
     </style>
     </body>
-    </html>  {% endcomment %}
-    <h4> Edit user </h4>
+    </html>  
+
+

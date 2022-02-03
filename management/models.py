@@ -11,11 +11,5 @@ class AddUser(models.Model):
     last_name       = models.CharField(max_length=20,)
     email          =models.CharField(max_length=20)
     role           = models.CharField(max_length=20)
-
+    profile_pic = models.ImageField(upload_to="static/images",default="",null=True,blank=True)
  
-# class UserAuth(models.Model):
-#     username = models.CharField(max_length=20)
-#     password = models.CharField(max_length=20)
-
-class ProfilePic(models.Model):
-    profile_pic = models.ImageField(upload_to="static/images",default="")
