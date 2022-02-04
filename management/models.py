@@ -13,3 +13,6 @@ class AddUser(models.Model):
     role           = models.CharField(max_length=20)
     profile_pic = models.ImageField(upload_to="static/images",default="",null=True,blank=True)
  
+class Status(models.Model):
+    status=models.CharField(max_length=10)
+                 

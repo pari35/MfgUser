@@ -11,6 +11,9 @@
    
   </head>
   <body>
+    {% for Usr in adeduser %}
+    {{Usr.username}}
+    {% endfor %}
    
     {% comment %} <div class="modal" tabindex="-1">
       <div class="modal-dialog">
@@ -34,6 +37,12 @@
         <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+
+      <!---->
+      {% if user.is_authenticated %}
+    </h3> {{user.first_name}} </h3> 
+      {% endif %}
+      <!---->
 
       <div class="float-right">
      <button type="button" class="btn btn-secondary" > <a href ="{% url 'add_user' %}"> Add User </a></button>
@@ -90,14 +99,20 @@
   </thead>
   <tbody>
     {% for user in aduser %}
+   
 
     <tr>
       <th scope="row">{{user.first_name}}</th>
       <td>{{user.email}}</td>
       <td> {{user.username}} </td>
       <th scope="row"> {{user.role}} </th>
-      <td>  </td>
-      <td>  </td>
+      <td> {{Usr.username}} </td>
+      <td> <form action="{% url 'edit_user' %}" method="POST" class="d-inline">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{user.id}}"/>
+        <button type="submit" class="btn btn-secondary" >Activated</button>
+      </form> 
+     </td>
       
       <td> 
          

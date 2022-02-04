@@ -27,7 +27,7 @@ urlpatterns = [
     path('user-management/',views.user_management,name="user_management"),
     path('edit_user/',views.update_user, name="edit_user"),
     path('register/',views.user_register, name="admin_register"),
-    path('login/',views.login, name="login"),
+    path('login/',views.loginn, name="login"),
     path('update-user/',views.update_user_DB, name="update_user_DB"),
 ]
 # +static(settings.MEDIA_URL, document_root=Settings.MEDIA_ROOT)
