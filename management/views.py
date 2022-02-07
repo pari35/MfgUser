@@ -1,11 +1,16 @@
-from django.http import JsonResponse
+from urllib import response
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render ,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth  import authenticate, login, logout
-from .forms import AddUsers
+from .forms import AddUsers, AddSite
+import csv
 
 from .models import AddUser
+
+
+
 
 #add user 
 def add_user(request):
@@ -146,3 +151,18 @@ def loginn(request):
         print('user logged in')
         
     return render(request,'login.html')
+
+def sites(request):
+    form=AddSite
+    if request.method == 'POST':
+        form = AddSite(request.POST,)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request,'Site details added')
+            print('added')
+        else:
+            print(form.errors)
+            
+            
+    return render(request,'sites.html',{'form':form})
